@@ -1,5 +1,12 @@
 # Squad 45 - Kyoto
 
+## WhatsApp oficial + IA
+
+Integração em **Java 17+** com a WhatsApp Cloud API da Meta.
+Veja [configuração, publicação e contrato da SophIA](docs/whatsapp.md).
+
+Execução e testes usam apenas o JDK; comandos no guia acima.
+
 ## Integrantes
 
 | Integrante | GitHub / E-mail |
