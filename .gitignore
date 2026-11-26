@@ -1,0 +1,11 @@
+target/
+build/
+out/
+.idea/
+*.iml
+.vscode/
+.env
+*.env
+!.env.example
+.DS_Store
+Thumbs.db
