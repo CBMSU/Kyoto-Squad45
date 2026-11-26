@@ -13,6 +13,7 @@ public class Timer {
     private final LocalDateTime origin;
     private final LocalDateTime callBackTime;
     private final Runnable callBack;
+    private boolean executed;
 
     public Timer(LocalDateTime origin, LocalDateTime callBackTime, Runnable callBack) {
         this.origin = origin;
@@ -32,14 +33,13 @@ public class Timer {
         this(LocalDateTime.now(), callBackTime, callBack);
     }
 
-    /**
-     * Executa a ação se o horário já passou.
-     *
-     * @return {@code true} se o horário já passou e a ação foi executada
-     */
+    /** Roda a ação uma vez só, na primeira chamada depois do horário. */
     public boolean update() {
-        boolean hasPassed = callBackTime.isBefore(LocalDateTime.now());
-        if (hasPassed) callBack.run();
-        return hasPassed;
+        if (executed || !callBackTime.isBefore(LocalDateTime.now())) {
+            return false;
+        }
+        executed = true;
+        callBack.run();
+        return true;
     }
 }

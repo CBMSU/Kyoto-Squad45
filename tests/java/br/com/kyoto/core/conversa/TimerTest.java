@@ -29,6 +29,17 @@ class TimerTest {
     }
 
     @Test
+    void executaUmaVezSo() {
+        AtomicInteger execucoes = new AtomicInteger();
+        Timer timer = new Timer(LocalDateTime.now().minusSeconds(1), execucoes::incrementAndGet);
+
+        assertTrue(timer.update());
+        assertFalse(timer.update());
+        assertFalse(timer.update());
+        assertEquals(1, execucoes.get());
+    }
+
+    @Test
     void copiaComNovoHorarioMantemAAcao() {
         AtomicInteger execucoes = new AtomicInteger();
         Timer original = new Timer(LocalDateTime.now().plusHours(1), execucoes::incrementAndGet);
