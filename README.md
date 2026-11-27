@@ -80,6 +80,12 @@ O `whatsapp` recebe a mensagem e chama o `core`, que aplica as regras e consulta
 
 Os testes ficam em `tests/java`, no mesmo pacote da classe testada (ex.: `tests/java/br/com/kyoto/core/conversa/TimerTest.java`).
 
+## Banco de dados
+
+As migrations ficam em `database/migrations`. A sessão da conversa é gravada nas tabelas `sessoes_conversa`, `sessoes_participacoes` e `sessoes_dados` (`202611270001_sessoes_conversa.sql`).
+
+O `RepositorioDeSessoesJdbc` recebe um `javax.sql.DataSource` e usa o driver do PostgreSQL em produção. Os testes usam o H2 em modo PostgreSQL, em um arquivo temporário, para comprovar que a conversa continua depois de recriar o repositório.
+
 ## Configuração do repositório
 
 | Arquivo | Para que serve |
