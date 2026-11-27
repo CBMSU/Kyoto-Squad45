@@ -27,6 +27,23 @@ public class SessaoConversa {
         this.morador = Objects.requireNonNull(morador, "morador");
     }
 
+    static SessaoConversa restore(MoradorDaConversa morador, EtapaConversa etapa,
+                                  List<ParticipacaoEmMediacao> mediacoes, String mediacaoAtivaId,
+                                  Map<String, String> dadosColetados, String mensagemPendente,
+                                  Instant ultimaMensagem) {
+        SessaoConversa sessao = new SessaoConversa(morador);
+        sessao.etapa = Objects.requireNonNull(etapa, "etapa");
+        sessao.mediacoes.addAll(mediacoes);
+        sessao.mediacaoAtiva = mediacoes.stream()
+                .filter(participacao -> Objects.equals(participacao.mediacaoId(), mediacaoAtivaId))
+                .findFirst()
+                .orElse(null);
+        sessao.dadosColetados.putAll(dadosColetados);
+        sessao.mensagemPendente = mensagemPendente;
+        sessao.ultimaMensagem = ultimaMensagem;
+        return sessao;
+    }
+
     public MoradorDaConversa morador() {
         return morador;
     }
@@ -49,6 +66,10 @@ public class SessaoConversa {
 
     public Optional<Instant> ultimaMensagem() {
         return Optional.ofNullable(ultimaMensagem);
+    }
+
+    Optional<String> mensagemPendente() {
+        return Optional.ofNullable(mensagemPendente);
     }
 
     public void registrarDado(String chave, String valor) {
